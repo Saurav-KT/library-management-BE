@@ -1,0 +1,4 @@
+staff_id,name,email,phone,password_hash,role
+1,Ravi Kumar,ravi@library.com,9876543210,test_278,Librarian
+2,Anjali Sharma,anjali@library.com,9876543211,test_298,Assistant Librarian
+3,Suresh Reddy,suresh@library.com,9876543212,test_245,Administrator
