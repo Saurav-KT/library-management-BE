@@ -39,3 +39,5 @@ class BookReadWithRelations(BookRead):
     author_name: Optional[str] = None
     publisher_name: Optional[str] = None
     category_name: Optional[str] = None
+
+

@@ -5,9 +5,9 @@ from app.models.staff import Staff
 from app.utils.security import verify_password
 from app.core.exception import UnauthorizedException
 from app.utils.security import create_access_token, create_refresh_token
-class LoginService:
-    def __init__(self, session: AsyncSession):
-        self.session = session
+from app.service.base_service import BaseService
+
+class LoginService(BaseService):
 
     async def login(self, login_data: Login) -> TokenResponse:
             # Fetch user from DB
@@ -30,5 +30,6 @@ class LoginService:
             return TokenResponse(
                 access_token=access_token,
                 refresh_token=refresh_token,
+                email= login_data.user_id
             )
 

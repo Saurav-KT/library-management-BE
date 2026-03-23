@@ -39,6 +39,7 @@ async def create_refresh_token(refresh_token: str):
         return TokenResponse(
             access_token=new_access_token,
             refresh_token=new_refresh_token,
+            email=None
         )
 
     except JWTError:
