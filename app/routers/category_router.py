@@ -15,6 +15,5 @@ router = APIRouter(
 async def get_all_categories(session: AsyncSession = Depends(get_db)):
     service= CategoryService(session)
     categories = await service.get_all_category()
-    if categories:
-        return success_response(build_message("list", "Category", len(categories)), data=categories,
+    return success_response(build_message("list", "Category", len(categories)), data=categories,
                                 status_code=status.HTTP_200_OK)

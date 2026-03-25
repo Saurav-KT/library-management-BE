@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, Depends, HTTPException
-from app.schemas.book_schema import BookCreate, BookRead
+from app.schemas.book_schema import BookCreate, BookRead,BookReadWithRelations
 from app.utils.response import success_response, SuccessResponse
 from app.service.book_service import BookService
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -20,6 +20,13 @@ async def create_book(book: BookCreate, session: AsyncSession = Depends(get_db))
                                     status_code=status.HTTP_201_CREATED)
 
 
+
+@router.get("",response_model=SuccessResponse[list[BookReadWithRelations]])
+async def get_all(session: AsyncSession = Depends(get_db)):
+    service= BookService(session)
+    books = await service.get_books()
+    return success_response(build_message("list", "Books", len(books)), data=books,
+                                status_code=status.HTTP_200_OK)
 
 # @router.get("/{book_id}", response_model=BookRead)
 # def get_book(book_id: int, session: Session = Depends(get_session)):

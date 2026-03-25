@@ -14,7 +14,6 @@ router = APIRouter(
 @router.get("",response_model=SuccessResponse[list[AuthorRead]])
 async def get_all_author(session: AsyncSession = Depends(get_db)):
     service= AuthorService(session)
-    categories = await service.get_all_author()
-    if categories:
-        return success_response(build_message("list", "Author", len(categories)), data=categories,
+    authors = await service.get_all_author()
+    return success_response(build_message("list", "Author", len(authors)), data=authors,
                                 status_code=status.HTTP_200_OK)

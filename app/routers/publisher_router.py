@@ -15,6 +15,5 @@ router = APIRouter(
 async def get_all_publisher(session: AsyncSession = Depends(get_db)):
     service= PublisherService(session)
     publishers = await service.get_all_publisher()
-    if publishers:
-        return success_response(build_message("list", "Publisher", len(publishers)), data=publishers,
+    return success_response(build_message("list", "Publisher", len(publishers)), data=publishers,
                                 status_code=status.HTTP_200_OK)

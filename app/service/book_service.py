@@ -1,8 +1,12 @@
+from sqlalchemy.orm import selectinload
 from sqlmodel import select
 
 from app.core.exception import ResourceNotFoundException
 from app.models.book import Book
-from app.schemas.book_schema import BookCreate, BookRead
+from app.models.author import Author
+from app.models.category import Category
+from app.models.publisher import Publisher
+from app.schemas.book_schema import BookCreate, BookRead, BookReadWithRelations
 from app.service.base_service import BaseService
 
 
@@ -18,6 +22,20 @@ class BookService(BaseService):
 
             # Convert ORM to Response Schema
             return BookRead.model_validate(new_book)
+
+    async def get_books(self)->list[BookReadWithRelations]:
+            result = await self.session.execute(
+                select(Book)
+                .options(
+                    selectinload(Book.author),
+                    selectinload(Book.publisher),
+                    selectinload(Book.category),
+                )
+            )
+
+            books = result.scalars().all()
+            return [BookReadWithRelations.model_validate(book) for book in books]
+
 
 
     async def get_book_by_id(self, book_id: int) -> BookRead:

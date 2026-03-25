@@ -3,10 +3,9 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from app.db.database import sessionmanager
-from app.routers import book_router, auth_router
+from app.routers import book_router, auth_router, category_router,publisher_router,author_router
 from app.settings.config import DATABASE_URL
 from app.service.seed_service import load_seed_data
-# import asyncio
 import app.models
 from app.core.exception_handler import register_exception_handlers
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,6 +24,14 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+
+register_exception_handlers(app)
+app.include_router(book_router.router, prefix="/api")
+app.include_router(category_router.router, prefix="/api")
+app.include_router(publisher_router.router, prefix="/api")
+app.include_router(author_router.router, prefix="/api")
+app.include_router(auth_router.router, prefix="/api")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # your frontend
@@ -32,10 +39,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-register_exception_handlers(app)
-app.include_router(book_router.router, prefix="/api")
-app.include_router(auth_router.router, prefix="/api")
 # async def main():
 #     sessionmanager.init(DATABASE_URL)
 #     await sessionmanager.init_db()
