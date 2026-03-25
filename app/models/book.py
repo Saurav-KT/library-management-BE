@@ -13,7 +13,6 @@ class Book(BaseModel, table=True):
     edition: str | None = None
     pages: int | None = None
     total_copies: int
-    available_copies: int
 
     # Foreign keys
     author_id: int | None = Field(default=None, foreign_key="author.author_id")

@@ -34,7 +34,7 @@ app.include_router(auth_router.router, prefix="/api")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # your frontend
+    allow_origins=["http://localhost:5173"],  # frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -10,3 +10,8 @@ class Status(str, Enum):
     ISSUED = "issued"
     LOST = "lost"
     DAMAGED= "damaged"
+
+class Location(str, Enum):
+    SHELF = "shelf"
+    MEMBER="with member"
+    NONE= "none"
