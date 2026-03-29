@@ -26,6 +26,12 @@ async def update_book(book_id: int, book: BookUpdate, session: AsyncSession = De
     return success_response(build_message("update", "Book"), data=updated_book,
                                 status_code=status.HTTP_200_OK)
 
+@router.delete("/{book_id}")
+async def delete_book(book_id: int, session: AsyncSession= Depends(get_db)):
+    service = BookService(session)
+    await service.delete_book(book_id=book_id)
+    return success_response(build_message("delete", "Book"),status_code=status.HTTP_200_OK)
+
 
 @router.get("",response_model=SuccessResponse[list[BookReadWithRelations]])
 async def get_all(session: AsyncSession = Depends(get_db)):
@@ -33,12 +39,3 @@ async def get_all(session: AsyncSession = Depends(get_db)):
     books = await service.get_books()
     return success_response(build_message("list", "Books", len(books)), data=books,
                                 status_code=status.HTTP_200_OK)
-
-# @router.get("/{book_id}", response_model=BookRead)
-# def get_book(book_id: int, session: Session = Depends(get_session)):
-#     order = get_order(order_number, customer_id)
-#
-#     return success_response(
-#         data=order,
-#         status_code=status.HTTP_200_OK
-#     )
