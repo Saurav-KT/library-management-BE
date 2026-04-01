@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from app.db.database import sessionmanager
-from app.routers import book_router, auth_router, category_router,publisher_router,author_router
+from app.routers import book_router, auth_router, category_router,publisher_router,author_router, member_router
 from app.settings.config import DATABASE_URL
 from app.service.seed_service import load_seed_data
 import app.models
@@ -31,6 +31,7 @@ app.include_router(category_router.router, prefix="/api")
 app.include_router(publisher_router.router, prefix="/api")
 app.include_router(author_router.router, prefix="/api")
 app.include_router(auth_router.router, prefix="/api")
+app.include_router(member_router.router, prefix="/api")
 
 app.add_middleware(
     CORSMiddleware,

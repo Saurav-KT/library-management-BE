@@ -24,7 +24,6 @@ class BookService(BaseService):
 
                 self.session.add_all(copies)
             await self.refresh(new_book)
-
             # Convert ORM to Response Schema
             return BookRead.model_validate(new_book)
 

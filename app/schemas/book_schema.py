@@ -10,9 +10,9 @@ class BookBase(BaseModel):
     edition: str | None = None
     pages: int | None = None
     total_copies: int = Field(ge=1)
-    author_id: int | None = None
-    publisher_id: int | None = None
-    category_id: int | None = None
+    author_id: int| None= None
+    publisher_id: int | None= None
+    category_id: int | None= None
 
 
 class BookRead(BookBase):
@@ -25,12 +25,7 @@ class BookCreate(BookBase):
 
 
 class BookUpdate(BookBase):
-
-    @model_validator(mode="after")
-    def check_not_empty(self):
-        if not self.model_dump(exclude_unset=True):
-            raise ValueError("No fields provided")
-        return self
+  pass
 
 
 class BookDelete(BaseModel):

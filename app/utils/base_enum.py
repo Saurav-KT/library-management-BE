@@ -15,3 +15,7 @@ class Location(str, Enum):
     SHELF = "shelf"
     MEMBER="with member"
     NONE= "none"
+
+class MemberStatus(str, Enum):
+    ACTIVE = "active"
+    INACTIVE = "inactive"
