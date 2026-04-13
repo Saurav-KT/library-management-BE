@@ -11,9 +11,10 @@ router = APIRouter(
     tags=["Categories"]
 )
 
-@router.get("",response_model=SuccessResponse[list[CategoryRead]])
+
+@router.get("", response_model=SuccessResponse[list[CategoryRead]])
 async def get_all_categories(session: AsyncSession = Depends(get_db)):
-    service= CategoryService(session)
+    service = CategoryService(session)
     categories = await service.get_all_category()
     return success_response(build_message("list", "Category", len(categories)), data=categories,
-                                status_code=status.HTTP_200_OK)
+                            status_code=status.HTTP_200_OK)
